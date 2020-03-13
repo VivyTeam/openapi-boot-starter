@@ -2,7 +2,11 @@ plugins {
     id "java"
 }
 
-apply plugin: 'org.springframework.boot'
+repositories {
+    jcenter()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
 
 targetCompatibility = sourceCompatibility = 11
 
@@ -14,15 +18,10 @@ test.testLogging {
 }
 
 dependencies {
-    implementation "org.springdoc:springdoc-openapi-security"
+    implementation "org.springdoc:springdoc-openapi-security:${springdoc}"
 
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
-    testImplementation 'org.springframework.security:spring-security-test'
-    testImplementation "org.junit.jupiter:junit-jupiter-api"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
-    testCompile "org.junit.jupiter:junit-jupiter-params"
+    testImplementation("org.springframework.security:spring-security-test:${springSecurity}")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:${bootSecurity}")
 }
 
 test {
