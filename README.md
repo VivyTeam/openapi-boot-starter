@@ -1,4 +1,4 @@
-# Vivy-Springdoc-security
+# Openapi-Boot-Starter
 
 Creates a default JWT configuration of springdoc for springboot security. 
 
