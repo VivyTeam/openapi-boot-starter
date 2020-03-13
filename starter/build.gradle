@@ -1,0 +1,30 @@
+plugins {
+    id "java"
+}
+
+apply plugin: 'org.springframework.boot'
+
+targetCompatibility = sourceCompatibility = 11
+
+test.testLogging {
+    displayGranularity 1
+    showStackTraces = true
+    exceptionFormat = 'full'
+    events "STARTED", "PASSED", "FAILED", "SKIPPED"
+}
+
+dependencies {
+    implementation "org.springdoc:springdoc-openapi-security"
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation "org.junit.jupiter:junit-jupiter-api"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
+    testCompile "org.junit.jupiter:junit-jupiter-params"
+}
+
+test {
+    useJUnitPlatform()
+}
