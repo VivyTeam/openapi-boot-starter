@@ -1,12 +1,3 @@
-targetCompatibility = sourceCompatibility = 11
-
-test.testLogging {
-    displayGranularity 1
-    showStackTraces = true
-    exceptionFormat = 'full'
-    events "STARTED", "PASSED", "FAILED", "SKIPPED"
-}
-
 dependencies {
     implementation "org.springdoc:springdoc-openapi-security:1.2.32"
 
