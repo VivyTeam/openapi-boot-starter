@@ -2,11 +2,4 @@
 
 Creates a default JWT configuration of springdoc for springboot security. 
 
-Include it in your project and initialize the bean using:
-
-```java
-@Bean
-public OpenAPI openAPI() {
-    return new BearerOpenAPI();
-}
-```
+Include it in your project using the jitpackage dependency: https://jitpack.io/#VivyTeam/openapi-boot-starter
