@@ -1,27 +1,8 @@
-plugins {
-    id "java"
-}
-
-repositories {
-    jcenter()
-    mavenCentral()
-    maven { url 'https://jitpack.io' }
-}
-
-targetCompatibility = sourceCompatibility = 11
-
-test.testLogging {
-    displayGranularity 1
-    showStackTraces = true
-    exceptionFormat = 'full'
-    events "STARTED", "PASSED", "FAILED", "SKIPPED"
-}
-
 dependencies {
-    implementation "org.springdoc:springdoc-openapi-security:${springdoc}"
+    implementation 'org.springdoc:springdoc-openapi-security:1.2.32'
 
-    testImplementation("org.springframework.security:spring-security-test:${springSecurity}")
-    testImplementation("org.springframework.boot:spring-boot-starter-test:${bootSecurity}")
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 test {

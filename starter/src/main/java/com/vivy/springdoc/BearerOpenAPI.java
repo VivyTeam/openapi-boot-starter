@@ -22,4 +22,5 @@ public class BearerOpenAPI extends OpenAPI {
         ));
         addSecurityItem(new SecurityRequirement().addList("bearer-jwt", Arrays.asList("read", "write")));
     }
+
 }

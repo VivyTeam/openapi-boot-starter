@@ -1,24 +1,25 @@
 plugins {
-    id 'org.springframework.boot' version '2.2.7.RELEASE'
-}
-
-project.ext.springdoc = '1.2.32'
-project.ext.jupiter = '5.6.0'
-project.ext.bootSecurity = '2.2.5.RELEASE'
-project.ext.springSecurity = '5.3.0.RELEASE'
-
-allprojects {
-
+    id 'java'
+    id 'org.springframework.boot' version '2.2.7.RELEASE'  apply false
 }
 
 subprojects {
-    apply plugin:'java'
+    repositories {
+        jcenter()
+    }
+
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.springframework.boot'
+
+    bootJar {
+        enabled = false
+    }
+
+    targetCompatibility = sourceCompatibility = 11
 
     dependencies {
-        testImplementation "org.junit.jupiter:junit-jupiter-api:${jupiter}"
-        testImplementation "org.junit.jupiter:junit-jupiter-params:${jupiter}"
-
-        testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jupiter}"
+        testImplementation 'org.junit.jupiter:junit-jupiter'
     }
 
     test {
