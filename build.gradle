@@ -16,6 +16,10 @@ subprojects {
         enabled = false
     }
 
+    jar {
+        enabled = true
+    }
+
     targetCompatibility = sourceCompatibility = 11
 
     dependencies {
