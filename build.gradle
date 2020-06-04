@@ -1,20 +1,18 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.2.5.RELEASE'  apply false
-}
-
-targetCompatibility = sourceCompatibility = 11
-
-allprojects {
-    apply plugin: 'java'
-    apply plugin: 'io.spring.dependency-management'
-    apply plugin: 'org.springframework.boot'
+    id 'org.springframework.boot' version '2.2.7.RELEASE'  apply false
 }
 
 subprojects {
     repositories {
         jcenter()
     }
+
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.springframework.boot'
+
+    targetCompatibility = sourceCompatibility = 11
 
     dependencies {
         testImplementation 'org.junit.jupiter:junit-jupiter'
