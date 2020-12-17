@@ -1,5 +1,5 @@
 dependencies {
-    implementation 'org.springdoc:springdoc-openapi-security:1.4.8'
+    implementation 'org.springdoc:springdoc-openapi-security:1.5.2'
 
     testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
