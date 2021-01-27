@@ -1,28 +1,43 @@
-plugins {
-    id 'java'
-    id 'org.springframework.boot' version '2.2.7.RELEASE'  apply false
-}
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
 
-subprojects {
     repositories {
         jcenter()
     }
 
-    apply plugin: 'java'
-    apply plugin: 'io.spring.dependency-management'
-    apply plugin: 'org.springframework.boot'
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                from components.java
 
-    bootJar {
-        enabled = false
+                versionMapping {
+                    usage('java-api') {
+                        fromResolutionOf('runtimeClasspath')
+                    }
+                    usage('java-runtime') {
+                        fromResolutionResult()
+                    }
+                }
+            }
+        }
     }
 
-    jar {
-        enabled = true
+    task install(dependsOn: tasks.publishToMavenLocal) {
     }
 
-    targetCompatibility = sourceCompatibility = 11
+    java {
+        withSourcesJar()
+    }
+}
+
+subprojects {
+    apply plugin: 'java-library'
+
+    targetCompatibility = sourceCompatibility = JavaVersion.VERSION_11
 
     dependencies {
+        implementation platform('org.springframework.boot:spring-boot-dependencies:2.4.2')
         testImplementation 'org.junit.jupiter:junit-jupiter'
     }
 
