@@ -4,7 +4,7 @@ dependencies {
     api "org.springdoc:springdoc-openapi-security:$openapiVersion"
     api 'org.springframework.security:spring-security-config'
 
-    implementation "org.springdoc:springdoc-openapi-webflux-ui:$openapiVersion"
+    implementation "org.springdoc:springdoc-openapi-webflux-core:$openapiVersion"
     implementation 'org.springframework.boot:spring-boot-autoconfigure'
 
     testImplementation 'org.springframework.security:spring-security-test'
