@@ -13,7 +13,7 @@ import org.springframework.context.annotation.PropertySource;
 import java.util.List;
 
 @Configuration
-@PropertySource("classpath:swagger-ui.properties")
+@PropertySource("classpath:openapi.properties")
 @AutoConfigureBefore(SwaggerUiConfigParameters.class)
 public class OpenAPIAutoConfiguration {
 
