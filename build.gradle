@@ -3,7 +3,17 @@ allprojects {
     apply plugin: 'maven-publish'
 
     repositories {
-        jcenter()
+        jcenter {
+            content {
+                excludeGroupByRegex "com\\.github.*"
+            }
+        }
+        maven {
+            url 'https://jitpack.io'
+            content {
+                includeGroupByRegex "com\\.github.*"
+            }
+        }
     }
 
     publishing {
