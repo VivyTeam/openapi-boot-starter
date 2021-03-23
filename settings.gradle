@@ -10,3 +10,5 @@
 rootProject.name = 'openapi-boot-starter'
 include 'starter'
 include 'example'
+include 'testgen'
+
