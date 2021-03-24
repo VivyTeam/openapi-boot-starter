@@ -1,4 +1,4 @@
-package com.vivy.springdoc
+package com.vivy.openapi
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
@@ -8,7 +8,11 @@ import org.gradle.api.tasks.TaskAction
 class GenerateApiDocsTest extends DefaultTask {
 
     @Input
-    String openApiDocsTestOut;
+    String apiDocsTestOut;
+
+    @Input
+    @Optional
+    String apiDocsFileOut = "build/api-docs.json";
 
     @Input
     @Optional
@@ -20,8 +24,8 @@ class GenerateApiDocsTest extends DefaultTask {
 
     @TaskAction
     def generate() {
-            new File(openApiDocsTestOut).mkdirs()
-            new File(openApiDocsTestOut, "OpenApiDocsTest.java").text =
+            new File(apiDocsTestOut).mkdirs()
+            new File(apiDocsTestOut, "OpenApiDocsTest.java").text =
                 """package $testPackage;
 
 import org.junit.jupiter.api.Test;
@@ -40,13 +44,11 @@ public class OpenApiDocsTest${parentClass == null ? "" : " extends $parentClass.
     @Autowired
     protected TestRestTemplate restTemplate;
 
-    private ObjectMapper objectMapper = new ObjectMapper();
-
     @Test
     void generateAPIDocs() throws Exception {
-        var apiDocs = restTemplate.getForEntity("/v3/api-docs", Object.class);
+        var apiDocs = restTemplate.getForEntity("/v3/api-docs", String.class);
         assertEquals(200, apiDocs.getStatusCodeValue());
-        Files.writeString(Path.of("api-docs.json"), objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(apiDocs.getBody()));
+        Files.writeString(Path.of("$apiDocsFileOut"), apiDocs.getBody());
     }
 }
 """
