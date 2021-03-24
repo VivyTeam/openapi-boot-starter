@@ -5,7 +5,6 @@ buildscript {
 }
 
 task generate(type: com.vivy.openapi.GenerateApiDocsTest) {
-    apiDocsTestOut = "$projectDir/src/test/java/com/vivy/openapi"
     parentClass = "com.vivy.support.AbstractIntegrationTest"
 }
 

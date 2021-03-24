@@ -7,16 +7,9 @@ import org.gradle.api.tasks.TaskAction
 
 class GenerateApiDocsTest extends DefaultTask {
 
-    @Input
-    String apiDocsTestOut;
+    def API_DOCS_TEST_OUT = "$project.projectDir/src/test/java/com/vivy/openapi"
 
-    @Input
-    @Optional
-    String apiDocsFileOut = "build/api-docs.json";
-
-    @Input
-    @Optional
-    String testPackage = "com.vivy.openapi";
+    def API_DOCS_FILE_OUT = "build/api-docs.json";
 
     @Input
     String parentClass = null;
@@ -25,9 +18,9 @@ class GenerateApiDocsTest extends DefaultTask {
     def generate() {
         def names = parentClass.split("\\.")
         def parentClassSimpleName = names[names.length - 1];
-        new File(apiDocsTestOut).mkdirs()
-        new File(apiDocsTestOut, "OpenApiDocsTest.java").text =
-            """package $testPackage;
+        new File(API_DOCS_TEST_OUT).mkdirs()
+        new File(API_DOCS_TEST_OUT, "OpenApiDocsTest.java").text =
+            """package com.vivy.openapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +46,7 @@ public class OpenApiDocsTest extends $parentClassSimpleName {
                 apiDocs.getStatusCodeValue(),
                 "/v3/api-docs endpoint should return status code 200, looks like it is missing or misconfigured"
         );
-        Files.writeString(Path.of("$apiDocsFileOut"), apiDocs.getBody());
+        Files.writeString(Path.of("$API_DOCS_FILE_OUT"), apiDocs.getBody());
     }
 }
 """
