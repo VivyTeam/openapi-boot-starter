@@ -1,4 +1,4 @@
-package com.vivy.springdoc
+package com.vivy.openapi
 
 import org.gradle.internal.impldep.org.junit.Assert;
 import org.gradle.testfixtures.ProjectBuilder
