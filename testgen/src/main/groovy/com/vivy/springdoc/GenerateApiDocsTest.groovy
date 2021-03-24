@@ -9,14 +9,14 @@ class GenerateApiDocsTest extends DefaultTask {
 
     @Input
     String openApiDocsTestOut;
-    @Input
-    String testPackage;
-    @Input
-    @Optional
-    String extensionClassImport = null;
+
     @Input
     @Optional
-    String extensionClassName = null;
+    String testPackage = "com.vivy.openapi.apidocs";
+
+    @Input
+    @Optional
+    Class parentClass = null;
 
     @TaskAction
     def generate() {
@@ -28,14 +28,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
-${extensionClassImport == null || extensionClassImport.length() == 0 ? "" : "import $extensionClassImport;"}
+${parentClass == null ? "" : "import $parentClass.name;"}
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class OpenApiDocsTest${extensionClassName == null || extensionClassName.length() == 0 ? "" : " extends $extensionClassName"} {
+public class OpenApiDocsTest${parentClass == null ? "" : " extends $parentClass.simpleName"} {
 
     @Autowired
     protected TestRestTemplate restTemplate;
