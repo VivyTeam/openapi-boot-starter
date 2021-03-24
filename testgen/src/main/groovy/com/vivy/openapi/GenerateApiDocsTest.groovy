@@ -48,7 +48,11 @@ public class OpenApiDocsTest extends $parentClassSimpleName {
     @Test
     void generateAPIDocs() throws Exception {
         var apiDocs = restTemplate.getForEntity("/v3/api-docs", String.class);
-        assertEquals(200, apiDocs.getStatusCodeValue());
+        assertEquals(
+                200,
+                apiDocs.getStatusCodeValue(),
+                "/v3/api-docs endpoint should return status code 200, looks like it is missing or misconfigured"
+        );
         Files.writeString(Path.of("$apiDocsFileOut"), apiDocs.getBody());
     }
 }
