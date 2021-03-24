@@ -19,27 +19,28 @@ class GenerateApiDocsTest extends DefaultTask {
     String testPackage = "com.vivy.openapi";
 
     @Input
-    @Optional
-    Class parentClass = null;
+    String parentClass = null;
 
     @TaskAction
     def generate() {
-            new File(apiDocsTestOut).mkdirs()
-            new File(apiDocsTestOut, "OpenApiDocsTest.java").text =
-                """package $testPackage;
+        def names = parentClass.split("\\.")
+        def parentClassSimpleName = names[names.length - 1];
+        new File(apiDocsTestOut).mkdirs()
+        new File(apiDocsTestOut, "OpenApiDocsTest.java").text =
+            """package $testPackage;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import com.fasterxml.jackson.databind.ObjectMapper;
-${parentClass == null ? "" : "import $parentClass.name;"}
+import $parentClass;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class OpenApiDocsTest${parentClass == null ? "" : " extends $parentClass.simpleName"} {
+public class OpenApiDocsTest extends $parentClassSimpleName {
 
     @Autowired
     protected TestRestTemplate restTemplate;

@@ -25,5 +25,8 @@ nbdist/
 .DS_Store
 
 /.gradle
+testgen/.gradle
 
 out/
+
+OpenApiDocsTest.java
