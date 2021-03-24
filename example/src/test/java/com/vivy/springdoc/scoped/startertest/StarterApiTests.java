@@ -1,20 +1,17 @@
 package com.vivy.springdoc.scoped.startertest;
 
+import com.vivy.support.AbstractIntegrationTest;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(
-        classes = StarterTestApplication.class,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
-)
-class StarterApiTests {
+class StarterApiTests extends AbstractIntegrationTest {
 
     @Autowired
     protected TestRestTemplate restTemplate;

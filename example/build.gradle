@@ -1,3 +1,15 @@
+buildscript {
+    dependencies {
+        classpath 'team.vivy.springdoc-security:testgen:master-SNAPSHOT'
+    }
+}
+
+task generate(type: com.vivy.openapi.GenerateApiDocsTest) {
+    parentClass = "com.vivy.support.AbstractIntegrationTest"
+}
+
+compileJava.dependsOn(generate)
+
 dependencies {
     implementation project(':starter')
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
