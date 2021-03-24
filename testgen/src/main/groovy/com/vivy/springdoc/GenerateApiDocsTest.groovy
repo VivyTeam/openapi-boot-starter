@@ -12,7 +12,7 @@ class GenerateApiDocsTest extends DefaultTask {
 
     @Input
     @Optional
-    String testPackage = "com.vivy.openapi.apidocs";
+    String testPackage = "com.vivy.openapi";
 
     @Input
     @Optional
