@@ -1,6 +1,6 @@
 buildscript {
     dependencies {
-        classpath 'com.vivy.openapi-boot-starter:testgen:master-SNAPSHOT'
+        classpath 'com.vivy.openapi-boot-starter:testgen:MAIN_fix_deploy-139217ba1c-1'
     }
 }
 
