@@ -3,7 +3,7 @@ buildscript {
         maven { url 'https://jitpack.io' }
     }
     dependencies {
-        classpath 'com.vivy.openapi-boot-starter:testgen:MAIN_fix_deploy-139217ba1c-1'
+        classpath 'com.vivy.openapi-boot-starter:testgen:MAIN_fix_deploy-SNAPSHOT'
     }
 }
 
