@@ -1,6 +1,6 @@
 buildscript {
     dependencies {
-        classpath 'team.vivy.springdoc-security:testgen:master-SNAPSHOT'
+        classpath 'com.vivy.openapi-boot-starter:testgen:master-SNAPSHOT'
     }
 }
 
