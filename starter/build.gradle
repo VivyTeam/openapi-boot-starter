@@ -1,5 +1,5 @@
 dependencies {
-    api "org.springdoc:springdoc-openapi-security:1.5.4"
+    api "org.springdoc:springdoc-openapi-security:1.5.8"
     api 'org.springframework.security:spring-security-config'
 
     implementation "org.springdoc:springdoc-openapi-webflux-core:1.5.5"
