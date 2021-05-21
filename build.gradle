@@ -37,7 +37,7 @@ subprojects {
     targetCompatibility = sourceCompatibility = JavaVersion.VERSION_11
 
     dependencies {
-        implementation platform('org.springframework.boot:spring-boot-dependencies:2.4.4')
+        implementation platform('org.springframework.boot:spring-boot-dependencies:2.4.6')
         testImplementation 'org.junit.jupiter:junit-jupiter'
     }
 
