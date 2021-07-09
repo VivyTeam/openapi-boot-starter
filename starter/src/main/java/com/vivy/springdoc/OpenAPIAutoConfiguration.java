@@ -87,7 +87,6 @@ public class OpenAPIAutoConfiguration {
         };
     }
 
-
     @Setter
     @Getter
     @ConfigurationProperties("openapi.service")
