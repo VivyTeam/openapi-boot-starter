@@ -27,12 +27,6 @@ class StarterApiTests extends AbstractIntegrationTest {
     @Autowired
     private OpenAPI openAPI;
 
-    @Autowired
-    private Environment environment;
-
-    @LocalServerPort
-    private int localServerPort;
-
     @Test
     public void configurationIsLoadable() {
         var securityScheme = openAPI.getComponents().getSecuritySchemes().get("bearer-jwt");
