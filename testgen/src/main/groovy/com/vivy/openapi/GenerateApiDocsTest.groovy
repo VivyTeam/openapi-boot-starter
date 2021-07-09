@@ -2,13 +2,14 @@ package com.vivy.openapi
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 
 class GenerateApiDocsTest extends DefaultTask {
-
+    @Input
     def API_DOCS_TEST_OUT = "$project.projectDir/src/test/java/com/vivy/openapi"
-
+    @Input
     def API_DOCS_FILE_OUT = "build/api-docs.json";
 
     @Input
