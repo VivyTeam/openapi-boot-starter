@@ -27,6 +27,9 @@ class StarterApiTests extends AbstractIntegrationTest {
     @Autowired
     private OpenAPI openAPI;
 
+    @Autowired
+    private Environment env;
+
     @Test
     public void configurationIsLoadable() {
         var securityScheme = openAPI.getComponents().getSecuritySchemes().get("bearer-jwt");
@@ -55,19 +58,14 @@ class StarterApiTests extends AbstractIntegrationTest {
 
     @Test
     public void testThatApiDocFileAtTheLocationSpecifiedByEnvVariable() {
-        //TODO BA-433, change back to the commented code when lombok issues are resolved
-        //String apiDocFile = environment.getProperty("openapi.service.output");
-        String apiDocFile = "build/api-docs.json";
+        String apiDocFile = env.getProperty("openapi.service.output");
         Path docApiFile = Paths.get(FileSystems.getDefault().getPath("").toAbsolutePath().toString(), apiDocFile);
-
         assertThat(docApiFile).exists();
     }
 
     @Test
     public void testThatApiDocFileContainsTheTheCorrectContent() throws IOException {
-        //TODO BA-433, change back to the commented code when lombok issues are resolved
-        //String apiDocFile = environment.getProperty("openapi.service.output");
-        String apiDocFile = "build/api-docs.json";
+        String apiDocFile = env.getProperty("openapi.service.output");
         Path docApiFile = Paths.get(FileSystems.getDefault().getPath("").toAbsolutePath().toString(), apiDocFile);
 
         String openApiSpec = restTemplate.getForEntity("/v3/api-docs", String.class).getBody();
