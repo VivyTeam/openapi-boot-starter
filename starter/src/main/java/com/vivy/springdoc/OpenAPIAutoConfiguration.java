@@ -74,7 +74,7 @@ public class OpenAPIAutoConfiguration {
                 filePath.toFile().createNewFile();
                 return filePath.toFile();
             }
-̦
+
             private void writeDocumentationInFile(File apiDocFile, String body) throws IOException {
                 try (FileOutputStream outputStream = new FileOutputStream(apiDocFile)) {
                     outputStream.write(body.getBytes());
@@ -88,7 +88,8 @@ public class OpenAPIAutoConfiguration {
     }
 
 
-    @Setter @Getter
+    @Setter
+    @Getter
     @ConfigurationProperties("openapi.service")
     public static class AppConfiguration {
         @Autowired
