@@ -22,7 +22,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import javax.validation.constraints.NotEmpty;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -61,7 +60,7 @@ public class OpenAPIAutoConfiguration {
             public void run(ApplicationArguments args) throws Exception {
                 ResponseEntity<String> apiDocsResponse = getRestTemplate().getForEntity(String.format("http://localhost:%d/v3/api-docs", configProperties.getPort()), String.class);
                 if (apiDocsResponse.getStatusCode() == HttpStatus.OK) {
-                    String output = configProperties.output;
+                    String output = configProperties.getOutput();
                     File apiDocFile = createApiDocFile(output);
                     writeDocumentationInFile(apiDocFile, apiDocsResponse.getBody());
                 }
@@ -75,7 +74,7 @@ public class OpenAPIAutoConfiguration {
                 filePath.toFile().createNewFile();
                 return filePath.toFile();
             }
-
+̦
             private void writeDocumentationInFile(File apiDocFile, String body) throws IOException {
                 try (FileOutputStream outputStream = new FileOutputStream(apiDocFile)) {
                     outputStream.write(body.getBytes());
