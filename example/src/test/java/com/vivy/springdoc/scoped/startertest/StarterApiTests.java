@@ -60,25 +60,23 @@ class StarterApiTests extends AbstractIntegrationTest {
     }
 
     @Test
-    public void testThatApiDocFileIsCreatedByNameAndLocationSpecifiedInPropertiesFiles() {
-        String apiDocFileName = environment.getProperty("openapi-boot-starter.swagger-ui.api-docs.file.name");
-        String apiDocFilePath = environment.getProperty("openapi-boot-starter.swagger-ui.api-docs.file.path");
-        Path docApiFile = Paths.get(FileSystems.getDefault().getPath("").toAbsolutePath().toString(), apiDocFilePath, apiDocFileName);
+    public void testThatApiDocFileAtTheLocationSpecifiedByEnvVariable() {
+        //TODO BA-433, change back to the commented code when lombok issues are resolved
+        //String apiDocFile = environment.getProperty("openapi.service.output");
+        String apiDocFile = "build/api-docs.json";
+        Path docApiFile = Paths.get(FileSystems.getDefault().getPath("").toAbsolutePath().toString(), apiDocFile);
 
         assertThat(docApiFile).exists();
     }
 
     @Test
-    public void testThatTheContentOfTheApiDocCreatedFileContainsBaseURlSpecifiedInThePropertiesFiles() throws IOException {
-        String apiDocFileName = environment.getProperty("openapi-boot-starter.swagger-ui.api-docs.file.name");
-        String apiDocFilePath = environment.getProperty("openapi-boot-starter.swagger-ui.api-docs.file.path");
-        String host = environment.getProperty("openapi-boot-starter.swagger-ui.api-docs.url.host");
-        String servicePort = environment.getProperty("openapi-boot-starter.swagger-ui.api-docs.url.port");
-        Path docApiFile = Paths.get(FileSystems.getDefault().getPath("").toAbsolutePath().toString(), apiDocFilePath, apiDocFileName);
-        String servicePortUrlSegment = servicePort.isBlank() ? servicePort : ":" + servicePort;
-        String openApiSpec = restTemplate.getForEntity("/v3/api-docs", String.class).getBody().replace("http://localhost:" + localServerPort, "http://" + host + servicePortUrlSegment);
-        String docApiSpec = Files.readString(docApiFile);
+    public void testThatApiDocFileContainsTheTheCorrectContent() throws IOException {
+        //TODO BA-433, change back to the commented code when lombok issues are resolved
+        //String apiDocFile = environment.getProperty("openapi.service.output");
+        String apiDocFile = "build/api-docs.json";
+        Path docApiFile = Paths.get(FileSystems.getDefault().getPath("").toAbsolutePath().toString(), apiDocFile);
 
-        assertThat(docApiSpec).isEqualTo(openApiSpec);
+        String openApiSpec = restTemplate.getForEntity("/v3/api-docs", String.class).getBody();
+        assertThat(Files.readString(docApiFile)).isEqualTo(openApiSpec);
     }
 }

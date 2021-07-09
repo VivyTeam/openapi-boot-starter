@@ -4,8 +4,7 @@ import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springdoc.core.SwaggerUiConfigParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -60,7 +59,7 @@ public class OpenAPIAutoConfiguration {
             public void run(ApplicationArguments args) throws Exception {
                 ResponseEntity<String> apiDocsResponse = getRestTemplate().getForEntity(String.format("http://localhost:%d/v3/api-docs", configProperties.getPort()), String.class);
                 if (apiDocsResponse.getStatusCode() == HttpStatus.OK) {
-                    String output = configProperties.getOutput();
+                    String output = configProperties.output;
                     File apiDocFile = createApiDocFile(output);
                     writeDocumentationInFile(apiDocFile, apiDocsResponse.getBody());
                 }
@@ -87,8 +86,7 @@ public class OpenAPIAutoConfiguration {
         };
     }
 
-    @Setter
-    @Getter
+    @Data
     @ConfigurationProperties("openapi.service")
     public static class AppConfiguration {
         @Autowired
