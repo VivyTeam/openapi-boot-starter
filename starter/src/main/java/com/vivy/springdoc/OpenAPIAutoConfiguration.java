@@ -53,7 +53,6 @@ public class OpenAPIAutoConfiguration {
 
     @Bean
     public ApplicationRunner applicationRunner(AppConfiguration configProperties) {
-
         return new ApplicationRunner() {
             @Override
             public void run(ApplicationArguments args) throws Exception {

@@ -6,9 +6,9 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.20'
 
     api "org.springdoc:springdoc-openapi-security:1.5.4"
-    api 'org.springframework.security:spring-security-config'
+    implementation 'org.springframework.security:spring-security-config'
 
-    api "org.springdoc:springdoc-openapi-webflux-core:1.5.8"
+    implementation "org.springdoc:springdoc-openapi-webflux-core:1.5.8"
     implementation 'org.springframework.boot:spring-boot-autoconfigure'
 
     testImplementation 'org.springframework.security:spring-security-test'
