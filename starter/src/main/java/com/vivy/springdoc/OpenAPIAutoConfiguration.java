@@ -51,9 +51,9 @@ public class OpenAPIAutoConfiguration {
                 .addSecurityItem(new SecurityRequirement().addList("bearer-jwt", List.of("read", "write")));
     }
 
+    //TODO testing the upload of files.
     @Bean
     public ApplicationRunner applicationRunner(AppConfiguration configProperties) {
-
         return new ApplicationRunner() {
             @Override
             public void run(ApplicationArguments args) throws Exception {
