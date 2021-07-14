@@ -6,8 +6,16 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,6 +26,9 @@ class StarterApiTests extends AbstractIntegrationTest {
 
     @Autowired
     private OpenAPI openAPI;
+
+    @Autowired
+    private Environment env;
 
     @Test
     public void configurationIsLoadable() {
@@ -45,4 +56,19 @@ class StarterApiTests extends AbstractIntegrationTest {
         assertThat(apiDocs.getBody()).contains("paths\":{\"/test\":{\"get");
     }
 
+    @Test
+    public void testThatApiDocFileAtTheLocationSpecifiedByEnvVariable() {
+        String apiDocFile = env.getProperty("openapi.service.output");
+        Path docApiFile = Paths.get(FileSystems.getDefault().getPath("").toAbsolutePath().toString(), apiDocFile);
+        assertThat(docApiFile).exists();
+    }
+
+    @Test
+    public void testThatApiDocFileContainsTheTheCorrectContent() throws IOException {
+        String apiDocFile = env.getProperty("openapi.service.output");
+        Path docApiFile = Paths.get(FileSystems.getDefault().getPath("").toAbsolutePath().toString(), apiDocFile);
+
+        String openApiSpec = restTemplate.getForEntity("/v3/api-docs", String.class).getBody();
+        assertThat(Files.readString(docApiFile)).isEqualTo(openApiSpec);
+    }
 }
