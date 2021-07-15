@@ -61,17 +61,22 @@ public class OpenAPIAutoConfiguration {
         return new ApplicationRunner() {
             @Override
             public void run(ApplicationArguments args) throws Exception {
-                RestTemplate restTemplate = getRestTemplate();
-                log("restTemplateSetUp......");
-                int port = configProperties.getPort();
-                log("portSetUp...... " + port);
-                ResponseEntity<String> apiDocsResponse = restTemplate.getForEntity(String.format("http://localhost:%d/v3/api-docs", port), String.class);
-                log("Call is done......");
-                if (apiDocsResponse.getStatusCode() == HttpStatus.OK) {
-                    String output = configProperties.output;
-                    File apiDocFile = createApiDocFile(output);
-                    writeDocumentationInFile(apiDocFile, apiDocsResponse.getBody());
+                    RestTemplate restTemplate = getRestTemplate();
+                    log("restTemplateSetUp......");
+                    int port = configProperties.getPort();
+                    log("portSetUp...... " + port);
+                try {
+                    ResponseEntity<String> apiDocsResponse = restTemplate.getForEntity(String.format("http://localhost:%d/v3/api-docs", port), String.class);
+                    log("Call is done......");
+                    if (apiDocsResponse.getStatusCode() == HttpStatus.OK) {
+                        String output = configProperties.output;
+                        File apiDocFile = createApiDocFile(output);
+                        writeDocumentationInFile(apiDocFile, apiDocsResponse.getBody());
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException("ERROR!!! port: " + port, e);
                 }
+
             }
 
             private File createApiDocFile(String file) throws IOException {
