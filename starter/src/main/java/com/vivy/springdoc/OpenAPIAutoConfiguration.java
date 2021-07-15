@@ -5,6 +5,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.Data;
+import lombok.extern.java.Log;
 import org.springdoc.core.SwaggerUiConfigParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -30,10 +31,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import static java.rmi.server.LogStream.log;
+
+
 @Configuration
 @PropertySource("classpath:openapi.properties")
 @AutoConfigureBefore(SwaggerUiConfigParameters.class)
 @EnableConfigurationProperties(OpenAPIAutoConfiguration.AppConfiguration.class)
+@Log
 public class OpenAPIAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
@@ -57,11 +62,11 @@ public class OpenAPIAutoConfiguration {
             @Override
             public void run(ApplicationArguments args) throws Exception {
                 RestTemplate restTemplate = getRestTemplate();
-                System.out.println("restTemplateSetUp......");
+                log("restTemplateSetUp......");
                 int port = configProperties.getPort();
-                System.out.println("portSetUp...... " + port);
+                log("portSetUp...... " + port);
                 ResponseEntity<String> apiDocsResponse = restTemplate.getForEntity(String.format("http://localhost:%d/v3/api-docs", port), String.class);
-                System.out.println("Call is done......");
+                log("Call is done......");
                 if (apiDocsResponse.getStatusCode() == HttpStatus.OK) {
                     String output = configProperties.output;
                     File apiDocFile = createApiDocFile(output);
