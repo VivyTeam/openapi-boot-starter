@@ -7,7 +7,6 @@ dependencies {
 
     implementation "org.springdoc:springdoc-openapi-security:1.5.4"
     implementation 'org.springframework.security:spring-security-config'
-    implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
     implementation "org.springdoc:springdoc-openapi-webflux-core:1.5.8"
     implementation 'org.springframework.boot:spring-boot-autoconfigure'
