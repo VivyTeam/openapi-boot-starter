@@ -13,4 +13,14 @@ dependencies {
 
     testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+
+    //delete all here
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation "org.springdoc:springdoc-openapi-security:1.5.4"
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    implementation platform('org.springframework.boot:spring-boot-dependencies:2.4.4')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
 }
