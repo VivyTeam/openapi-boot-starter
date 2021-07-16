@@ -38,7 +38,6 @@ import static java.rmi.server.LogStream.log;
 @PropertySource("classpath:openapi.properties")
 @AutoConfigureBefore(SwaggerUiConfigParameters.class)
 @EnableConfigurationProperties(OpenAPIAutoConfiguration.AppConfiguration.class)
-@Log
 public class OpenAPIAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
@@ -62,20 +61,17 @@ public class OpenAPIAutoConfiguration {
             @Override
             public void run(ApplicationArguments args) throws Exception {
                     RestTemplate restTemplate = getRestTemplate();
-                    log("restTemplateSetUp......");
                     int port = configProperties.getPort();
-                    log("portSetUp...... " + port);
-                try {
-                    ResponseEntity<String> apiDocsResponse = restTemplate.getForEntity(String.format("http://localhost:%d/v3/api-docs", port), String.class);
-                    log("Call is done......");
-                    if (apiDocsResponse.getStatusCode() == HttpStatus.OK) {
-                        String output = configProperties.output;
-                        File apiDocFile = createApiDocFile(output);
-                        writeDocumentationInFile(apiDocFile, apiDocsResponse.getBody());
-                    }
-                } catch (Exception e) {
-                    throw new RuntimeException("ERROR!!! port: " + port, e);
-                }
+//                try {
+//                    ResponseEntity<String> apiDocsResponse = restTemplate.getForEntity(String.format("http://localhost:%d/v3/api-docs", port), String.class);
+//                    if (apiDocsResponse.getStatusCode() == HttpStatus.OK) {
+//                        String output = configProperties.output;
+//                        File apiDocFile = createApiDocFile(output);
+//                        writeDocumentationInFile(apiDocFile, apiDocsResponse.getBody());
+//                    }
+//                } catch (Exception e) {
+//                    throw new RuntimeException("ERROR!!! port: " + port, e);
+//                }̊
 
             }
 
