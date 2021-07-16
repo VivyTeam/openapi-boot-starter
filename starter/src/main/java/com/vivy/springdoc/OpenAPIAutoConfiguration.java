@@ -45,7 +45,7 @@ import java.util.List;
 @PropertySource("classpath:openapi.properties")
 @AutoConfigureBefore(SwaggerUiConfigParameters.class)
 @EnableConfigurationProperties(OpenAPIAutoConfiguration.AppConfiguration.class)
-@EnableAutoConfiguration(exclude = {ReactiveSecurityAutoConfiguration.class})
+//@EnableAutoConfiguration(exclude = {ReactiveSecurityAutoConfiguration.class})
 public class OpenAPIAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
