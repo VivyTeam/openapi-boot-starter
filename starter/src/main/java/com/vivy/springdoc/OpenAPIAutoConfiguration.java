@@ -27,6 +27,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
@@ -69,17 +71,16 @@ public class OpenAPIAutoConfiguration {
             public void run(ApplicationArguments args) throws Exception {
                 RestTemplate restTemplate = getRestTemplate();
                 int port = configProperties.getPort();
-//                try {
-//                    ResponseEntity<String> apiDocsResponse = restTemplate.getForEntity(String.format("http://localhost:%d/v3/api-docs", port), String.class);
-//                    if (apiDocsResponse.getStatusCode() == HttpStatus.OK) {
-//                        String output = configProperties.output;
-//                        File apiDocFile = createApiDocFile(output);
-//                        writeDocumentationInFile(apiDocFile, apiDocsResponse.getBody());
-//                    }
-//                } catch (Exception e) {
-//                    throw new RuntimeException("ERROR!!! port: " + port, e);
-//                }̊
-
+                try {
+                    ResponseEntity<String> apiDocsResponse = restTemplate.getForEntity(String.format("http://localhost:%d/v3/api-docs", port), String.class);
+                    if (apiDocsResponse.getStatusCode() == HttpStatus.OK) {
+                        String output = configProperties.output;
+                        File apiDocFile = createApiDocFile(output);
+                        writeDocumentationInFile(apiDocFile, apiDocsResponse.getBody());
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException("ERROR!!! port: " + port, e);
+                }
             }
 
             private File createApiDocFile(String file) throws IOException {
