@@ -7,6 +7,7 @@ dependencies {
 
     implementation "org.springdoc:springdoc-openapi-webflux-core:1.5.8"
     testImplementation "org.springframework.boot:spring-boot-starter-security" // makes a difference
+    testImplementation "org.springdoc:springdoc-openapi-security:1.5.4" // added
 
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
