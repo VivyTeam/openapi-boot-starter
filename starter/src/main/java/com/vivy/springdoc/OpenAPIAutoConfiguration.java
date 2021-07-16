@@ -7,7 +7,6 @@ package com.vivy.springdoc;
 //import io.swagger.v3.oas.models.security.SecurityScheme;
 
 
-
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
@@ -19,7 +18,9 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 //import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -36,13 +37,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-//import java.util.List;
 
 
 @Configuration
 @PropertySource("classpath:openapi.properties")
 @AutoConfigureBefore(SwaggerUiConfigParameters.class)
 @EnableConfigurationProperties(OpenAPIAutoConfiguration.AppConfiguration.class)
+@EnableAutoConfiguration(exclude = {ReactiveSecurityAutoConfiguration.class})
 public class OpenAPIAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
@@ -66,8 +67,8 @@ public class OpenAPIAutoConfiguration {
         return new ApplicationRunner() {
             @Override
             public void run(ApplicationArguments args) throws Exception {
-                    RestTemplate restTemplate = getRestTemplate();
-                    int port = configProperties.getPort();
+                RestTemplate restTemplate = getRestTemplate();
+                int port = configProperties.getPort();
 //                try {
 //                    ResponseEntity<String> apiDocsResponse = restTemplate.getForEntity(String.format("http://localhost:%d/v3/api-docs", port), String.class);
 //                    if (apiDocsResponse.getStatusCode() == HttpStatus.OK) {
