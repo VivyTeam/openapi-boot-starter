@@ -12,6 +12,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.SwaggerUiConfigParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -46,6 +47,7 @@ import java.util.List;
 @AutoConfigureBefore(SwaggerUiConfigParameters.class)
 @EnableConfigurationProperties(OpenAPIAutoConfiguration.AppConfiguration.class)
 //@EnableAutoConfiguration(exclude = {ReactiveSecurityAutoConfiguration.class})
+@Slf4j
 public class OpenAPIAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
@@ -93,6 +95,7 @@ public class OpenAPIAutoConfiguration {
             }
 
             private void writeDocumentationInFile(File apiDocFile, String body) throws IOException {
+                log.info("file created at: " + apiDocFile.getAbsolutePath());
                 try (FileOutputStream outputStream = new FileOutputStream(apiDocFile)) {
                     outputStream.write(body.getBytes());
                 }
