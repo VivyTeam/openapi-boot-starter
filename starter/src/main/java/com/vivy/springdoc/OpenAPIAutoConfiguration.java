@@ -95,7 +95,7 @@ public class OpenAPIAutoConfiguration {
             }
 
             private void writeDocumentationInFile(File apiDocFile, String body) throws IOException {
-                log.info("file created at: " + apiDocFile.getAbsolutePath());
+                log.error("file created at: " + apiDocFile.getAbsolutePath());
                 try (FileOutputStream outputStream = new FileOutputStream(apiDocFile)) {
                     outputStream.write(body.getBytes());
                 }
