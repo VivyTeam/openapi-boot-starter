@@ -91,7 +91,9 @@ public class OpenAPIAutoConfiguration {
                 Files.createDirectories(filePath.getParent());
                 //noinspection ResultOfMethodCallIgnored, output is not relevant
                 filePath.toFile().createNewFile();
-                return filePath.toFile();
+                throw new IOException("!!! FILE IS " + filePath.toString());
+
+//                return filePath.toFile();
             }
 
             private void writeDocumentationInFile(File apiDocFile, String body) throws IOException {
