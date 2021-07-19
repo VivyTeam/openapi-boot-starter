@@ -78,6 +78,7 @@ public class OpenAPIAutoConfiguration {
                     if (apiDocsResponse.getStatusCode() == HttpStatus.OK) {
                         String output = configProperties.output;
                         File apiDocFile = createApiDocFile(output);
+                        log.info("file doc path: " + apiDocFile.getAbsolutePath());
                         writeDocumentationInFile(apiDocFile, apiDocsResponse.getBody());
                     }
                 } catch (Exception e) {
