@@ -1,6 +1,6 @@
 package com.vivy.springdoc;
 
-//import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.OpenAPI;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -22,7 +22,7 @@ class OpenAPIAutoConfigurationTest {
     @Test
     void testThatApplicationRunnerIsPresentWhenOpenApiIsPresent() {
         contextRunner.run(context -> {
-//            assertThat(context).hasSingleBean(OpenAPI.class);
+            assertThat(context).hasSingleBean(OpenAPI.class);
             assertThat(context).hasSingleBean(ApplicationRunner.class);
         });
     }

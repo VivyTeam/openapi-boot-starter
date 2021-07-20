@@ -1,27 +1,16 @@
 package com.vivy.springdoc;
 
-//
-//import io.swagger.v3.oas.models.Components;
-//import io.swagger.v3.oas.models.OpenAPI;
-//import io.swagger.v3.oas.models.security.SecurityRequirement;
-//import io.swagger.v3.oas.models.security.SecurityScheme;
-
-
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.SwaggerUiConfigParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
-//import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -41,13 +30,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-
 @Configuration
 @PropertySource("classpath:openapi.properties")
 @AutoConfigureBefore(SwaggerUiConfigParameters.class)
 @EnableConfigurationProperties(OpenAPIAutoConfiguration.AppConfiguration.class)
-//@EnableAutoConfiguration(exclude = {ReactiveSecurityAutoConfiguration.class})
-@Slf4j
 public class OpenAPIAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
@@ -61,8 +47,7 @@ public class OpenAPIAutoConfiguration {
                                 .bearerFormat("JWT")
                                 .in(SecurityScheme.In.HEADER)
                                 .name("Authorization")
-                )
-        )
+                ))
                 .addSecurityItem(new SecurityRequirement().addList("bearer-jwt", List.of("read", "write")));
     }
 
@@ -71,18 +56,11 @@ public class OpenAPIAutoConfiguration {
         return new ApplicationRunner() {
             @Override
             public void run(ApplicationArguments args) throws Exception {
-                RestTemplate restTemplate = getRestTemplate();
-                int port = configProperties.getPort();
-                try {
-                    ResponseEntity<String> apiDocsResponse = restTemplate.getForEntity(String.format("http://localhost:%d/v3/api-docs", port), String.class);
-                    if (apiDocsResponse.getStatusCode() == HttpStatus.OK) {
-                        String output = configProperties.output;
-                        File apiDocFile = createApiDocFile(output);
-                        log.info("file doc path: " + apiDocFile.getAbsolutePath());
-                        writeDocumentationInFile(apiDocFile, apiDocsResponse.getBody());
-                    }
-                } catch (Exception e) {
-                    throw new RuntimeException("ERROR!!! port: " + port, e);
+                ResponseEntity<String> apiDocsResponse = getRestTemplate().getForEntity(String.format("http://localhost:%d/v3/api-docs", configProperties.getPort()), String.class);
+                if (apiDocsResponse.getStatusCode() == HttpStatus.OK) {
+                    String output = configProperties.output;
+                    File apiDocFile = createApiDocFile(output);
+                    writeDocumentationInFile(apiDocFile, apiDocsResponse.getBody());
                 }
             }
 
