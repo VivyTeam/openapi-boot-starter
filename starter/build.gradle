@@ -5,7 +5,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.20'
     testCompileOnly 'org.projectlombok:lombok:1.18.20'
 
-    api "org.springdoc:springdoc-openapi-security:1.5.4"
+    api "org.springdoc:springdoc-openapi-security:1.5.9"
     api 'org.springframework.security:spring-security-config'
 
     implementation "org.springdoc:springdoc-openapi-webflux-core:1.5.8"
