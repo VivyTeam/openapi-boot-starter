@@ -30,3 +30,4 @@ testgen/.gradle
 out/
 
 OpenApiDocsTest.java
+/example/api-docs.json
