@@ -1,0 +1,33 @@
+version: 2
+registries:
+  maven-repository-maven-pkg-github-com-vivyteam-packages:
+    type: maven-repository
+    url: https://maven.pkg.github.com/VivyTeam/Packages
+    username: VivyPackages
+    password: "${{secrets.MAVEN_REPOSITORY_MAVEN_PKG_GITHUB_COM_VIVYTEAM_PACKAGES_PASSWORD}}"
+
+updates:
+- package-ecosystem: gradle
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+    timezone: Europe/Berlin
+  open-pull-requests-limit: 8
+  ignore:
+  - dependency-name: org.springdoc:springdoc-openapi-security
+    versions:
+    - 1.5.3
+    - 1.5.5
+    - 1.5.6
+    - 1.5.7
+  - dependency-name: org.springdoc:springdoc-openapi-webflux-core
+    versions:
+    - 1.5.6
+    - 1.5.7
+  - dependency-name: org.springframework.boot
+    versions:
+    - 2.4.2
+  rebase-strategy: disabled
+  registries:
+  - maven-repository-maven-pkg-github-com-vivyteam-packages
