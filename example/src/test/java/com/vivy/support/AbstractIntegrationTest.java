@@ -7,5 +7,5 @@ import org.springframework.boot.test.context.SpringBootTest;
         classes = StarterTestApplication.class,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-public class AbstractIntegrationTest {
+public abstract class AbstractIntegrationTest {
 }

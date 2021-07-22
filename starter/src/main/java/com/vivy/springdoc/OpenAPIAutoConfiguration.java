@@ -53,7 +53,6 @@ public class OpenAPIAutoConfiguration {
 
     @Bean
     public ApplicationRunner applicationRunner(AppConfiguration configProperties) {
-
         return new ApplicationRunner() {
             @Override
             public void run(ApplicationArguments args) throws Exception {
@@ -92,7 +91,7 @@ public class OpenAPIAutoConfiguration {
         @Autowired
         private Environment env;
 
-        private String output = "build/api-docs.json";
+        private String output = "api-docs.json";
 
         public int getPort() {
             return env.getProperty("local.server.port", Integer.class, -1);
