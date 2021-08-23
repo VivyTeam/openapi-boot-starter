@@ -16,7 +16,6 @@ public class SwaggerBlockHoundIntegration implements BlockHoundIntegration {
                         "build"
                 );
     }
-
 }
 
 
